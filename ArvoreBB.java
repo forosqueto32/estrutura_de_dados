@@ -224,18 +224,22 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                 if(no_atual.getFilhoEsquerdo() != null){
                     no_atual = no_atual.getFilhoEsquerdo();
                     visitados.push(no_atual);
-                    System.out.println("Indo para esquerda: "+no_atual.getChave());
-                }else{
+                    //System.out.println("Indo para esquerda: "+no_atual.getChave());
+                }
+                if(no_atual.getFilhoEsquerdo() == null){
                     explorados.add(no_atual);
+                    System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
                 }
                 if(no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() == null){
                     visitados.pop();
-                    if(visitados.peek().getFilhoDireito() != null){
+                    if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
                         explorados.add(visitados.peek());
-                        System.out.println(explorados.getLast().getChave());
+                        System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                        //System.out.println(explorados.getLast().getChave());
                         no_atual = visitados.peek().getFilhoDireito();
                         visitados.pop();
                         visitados.push(no_atual);
+                        
                     }else{
                         return explorados;
                     }
