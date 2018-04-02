@@ -230,6 +230,11 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                     explorados.add(no_atual);
                     System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
                 }
+                if(no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() != null){
+                    no_atual = no_atual.getFilhoDireito();
+                    visitados.pop();
+                    visitados.push(no_atual);
+                }
                 if(no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() == null){
                     visitados.pop();
                     if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
@@ -240,7 +245,27 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                         visitados.pop();
                         visitados.push(no_atual);
                         
-                    }else{
+                    }else if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null){
+                        explorados.add(visitados.peek());
+                        System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                        visitados.pop();
+                        if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
+                            explorados.add(visitados.peek());
+                            System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                            no_atual = visitados.peek().getFilhoDireito();
+                            visitados.pop();
+                            visitados.push(no_atual);
+                        }else if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null){
+                            visitados.pop();
+                        }
+                        
+                    }
+                    
+                    if(visitados.isEmpty()){
+                        System.out.println("Imprimindo a lista:");
+                        for(No<K, V> c : explorados){
+                            System.out.println("Em Ordem: "+c.getChave()+"\n");
+                        }
                         return explorados;
                     }
                     
