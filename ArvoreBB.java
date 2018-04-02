@@ -119,9 +119,6 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
 
                     }
                 } else if (no_remover.twoChildren()) {//CASO DOIS FILHOS
-                    //IR PRA DIREITA DO NÓ A SER REMOVIDO E DEPOIS SÓ PARA A ESQUERDA PARA ACHAR O MENOR SUCESSOR
-                    //O SUCESSOR VAI SER UM NÓ FOLHA OU UM NÓ QUE POSSUI APENAS UM FILHO A DIREITA
-                    //APLICAMOS O MÉTODO REMOVER NOVAMENTE PARA ESSE NÓ
                     boolean encontrado = false;
                     no_atual = no_remover.getFilhoDireito();
                     while (encontrado != true) {
