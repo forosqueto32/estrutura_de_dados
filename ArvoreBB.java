@@ -65,8 +65,8 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
             tamanho++;
             System.out.println("Raiz: " + raiz.getChave());
             return true;
-        }
-
+        }//s
+        
         return false;
     }
 
