@@ -1,39 +1,45 @@
-package LDE;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package arvore_binaria_busca;
 
-import java.util.Iterator;
-
+/**
+ *
+ * @author harri
+ */
 public class Main {
 
-	public static void main(String[] args) {
-		ListaDuplamenteEncadeada<String> lista  = new ListaDuplamenteEncadeada<>();
-		
-		lista.adiciona("Queijo");
-		lista.adiciona("Presunto");
-		//System.out.println(lista.obter(1));
-		//lista.remover("Presunto");
-		//System.out.println(lista.obter(0));
-		
-		for(String s : lista){
-			System.out.println(s);
-		}
-		
-		
-		Iterator x = lista.iterator();
-		while(x.hasNext()){
-			System.out.println(x.next());
-		}
-		/*System.out.println("espaço");
-		
-		
-		for (String string : lista) {
-			System.out.println(string);
-		}
-		
-		Iterator x = lista.iteratorReverso();
-		while(x.hasNext()){
-			System.out.println(x.next());
-		}*/
-		
-	}
+    public static void main(String[] args) {
+        ArvoreBB<String, Integer> arvore = new ArvoreBB<>();
+        arvore.inserir("j", 30);
+        arvore.inserir("c", 15);
+        arvore.inserir("m", 20);
+        //arvore.inserir("Bruno", 19);
+        arvore.inserir("a", 19);
+        arvore.inserir("f", 15);
+        arvore.inserir("e", 20);
+        arvore.inserir("g", 45);
+        arvore.inserir("l", 45);
+        arvore.inserir("q", 45);
+        arvore.inserir("o", 45);
+       arvore.inserir("t", 45);
+        arvore.inserir("s", 45);
+        arvore.inserir("v", 45);
+        arvore.getOrdenado();
+        /*
+        System.out.println("ContÃ©m " + arvore.contem("d"));
+        System.out.println("Tamanho:" + arvore.tamanho());
+        System.out.println("Filho esquerdo de d:" + arvore.obter("d").getFilhoEsquerdo().getChave());        
+        System.out.println(arvore.remover("a"));
+        arvore.remover("h");
+        System.out.println("Filho Direito: "+arvore.obter("d").getFilhoDireito().getChave());
+        System.out.println(arvore.remover("k"));
+        System.out.println("Obter:"+arvore.obter("i").getValor());
+        */
+        
+       
+    }
 
 }
