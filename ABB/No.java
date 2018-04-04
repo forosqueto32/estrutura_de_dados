@@ -12,13 +12,14 @@ import javax.swing.JOptionPane;
  * @author harri
  */
 public class No<K extends Comparable<K>, V> {
+
     private K chave;
     private V valor;
     private No<K, V> pai, filhoEsquerdo, filhoDireito;
-    
-    public No(){
+
+    public No() {
     }
-    
+
     public K getChave() {
         return chave;
     }
@@ -58,16 +59,16 @@ public class No<K extends Comparable<K>, V> {
     public void setFilhoDireito(No<K, V> filhoDireito) {
         this.filhoDireito = filhoDireito;
     }
-    
-   public boolean isLeaf(){
+
+    public boolean isLeaf() {
         return filhoEsquerdo == null && filhoDireito == null;
     }
-   
-   public boolean oneChild(){
-       return filhoEsquerdo != null || filhoDireito != null;
-   }
-   
-   public boolean twoChildren(){
-       return filhoEsquerdo != null && filhoDireito != null;
-   }
+
+    public boolean oneChild() {
+        return filhoEsquerdo != null || filhoDireito != null;
+    }
+
+    public boolean twoChildren() {
+        return filhoEsquerdo != null && filhoDireito != null;
+    }
 }

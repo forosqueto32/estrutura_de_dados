@@ -248,7 +248,7 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                                 visitados.pop();
                             }
 
-                        } 
+                        }
                         if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null) {
                             explorados.add(visitados.peek());
                             no_atual = visitados.peek().getFilhoDireito();
@@ -260,13 +260,13 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                     //no_atual = visitados.peek().getFilhoDireito();
                     //visitados.push(no_atual);
                 }
-                 if (visitados.isEmpty()) {
-                        System.out.println("Imprimindo a lista:");
-                        for (No<K, V> c : explorados) {
-                            System.out.println("Em Ordem: " + c.getChave() + "\n");
-                        }
-                        return explorados;
+                if (visitados.isEmpty()) {
+                    System.out.println("Imprimindo a lista:");
+                    for (No<K, V> c : explorados) {
+                        System.out.println("Em Ordem: " + c.getChave() + "\n");
                     }
+                    return explorados;
+                }
             }
         }
         return null;
