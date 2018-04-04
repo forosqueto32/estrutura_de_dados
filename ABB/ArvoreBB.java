@@ -66,7 +66,7 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
             System.out.println("Raiz: " + raiz.getChave());
             return true;
         }//s
-        
+
         return false;
     }
 
@@ -215,61 +215,70 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
         if (this.raiz == null) {
             throw new NullPointerException("Árvore Vázia.");
         } else {
-            No<K,V> no_atual = this.raiz;
+            No<K, V> no_atual = this.raiz;
             visitados.push(no_atual);
             while (!visitados.isEmpty()) {
-                if(no_atual.getFilhoEsquerdo() != null){
+                if (no_atual.getFilhoEsquerdo() != null) {
                     no_atual = no_atual.getFilhoEsquerdo();
                     visitados.push(no_atual);
                     //System.out.println("Indo para esquerda: "+no_atual.getChave());
                 }
-                if(no_atual.getFilhoEsquerdo() == null){
+                if (no_atual.getFilhoEsquerdo() == null) {
                     explorados.add(no_atual);
-                    System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                    System.out.println("Adicionado em Explorado: " + explorados.getLast().getChave());
                 }
-                if(no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() != null){
+                if (no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() != null) {
                     no_atual = no_atual.getFilhoDireito();
                     visitados.pop();
                     visitados.push(no_atual);
+                    continue;//ARRUMAR E NÃO PRECISAR DO CONTINUE
                 }
-                if(no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() == null){
+                if (no_atual.getFilhoEsquerdo() == null && no_atual.getFilhoDireito() == null) {
                     visitados.pop();
-                    if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
+                    if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null) {
                         explorados.add(visitados.peek());
-                        System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                        System.out.println("Adicionado em Explorado: " + explorados.getLast().getChave());
                         //System.out.println(explorados.getLast().getChave());
                         no_atual = visitados.peek().getFilhoDireito();
                         visitados.pop();
                         visitados.push(no_atual);
-                        
-                    }else if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null){
+                        System.out.println("Diferente de nulo");
+
+                    } else if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null) {//VER SE ESSE ELSE VAI RODAR
+                        System.out.println("Igual de nulo");
                         explorados.add(visitados.peek());
-                        System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                        System.out.println("Adicionado em Explorado: " + explorados.getLast().getChave());
                         visitados.pop();
-                        if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
+                        if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null) {
+                            while (visitados.peek().getFilhoDireito() == null) {
+                                explorados.add(visitados.peek());
+                                visitados.pop();
+                                System.out.println("Direita null");
+                            }
+
+                        } 
+                        if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null) {
                             explorados.add(visitados.peek());
-                            System.out.println("Adicionado em Explorado: "+explorados.getLast().getChave());
+                            System.out.println("Adicionado em Explorado: " + explorados.getLast().getChave());
                             no_atual = visitados.peek().getFilhoDireito();
                             visitados.pop();
                             visitados.push(no_atual);
-                        }else if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null){
-                            visitados.pop();
                         }
-                        
+
                     }
-                    
-                    if(visitados.isEmpty()){
+
+                   
+
+                    //no_atual = visitados.peek().getFilhoDireito();
+                    //visitados.push(no_atual);
+                }
+                 if (visitados.isEmpty()) {
                         System.out.println("Imprimindo a lista:");
-                        for(No<K, V> c : explorados){
-                            System.out.println("Em Ordem: "+c.getChave()+"\n");
+                        for (No<K, V> c : explorados) {
+                            System.out.println("Em Ordem: " + c.getChave() + "\n");
                         }
                         return explorados;
                     }
-                    
-                   //no_atual = visitados.peek().getFilhoDireito();
-                   //visitados.push(no_atual);
-                }
-                
             }
         }
         return null;
