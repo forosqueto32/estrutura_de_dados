@@ -208,7 +208,7 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Collection<No<K, V>> getOrdenado() {
+    public Collection<No<K, V>> getOrdenado() {//MUITOS IFS
         LinkedList<No<K, V>> explorados = new LinkedList<>();
         Stack<No<K, V>> visitados = new Stack<>();
         System.out.println("Método getOrdenado Iniciado.");
@@ -269,6 +269,94 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                 }
             }
         }
+
         return null;
     }
+
+    public Collection<No<K, V>> getPreOrdenado() {
+        System.out.println("Pre Ordenado.");
+        LinkedList<No<K, V>> explorados = new LinkedList<>();
+        Stack<No<K, V>> visitados = new Stack<>();
+        No<K, V> aux = null, aux2 = null, no_atual = this.raiz;
+
+        if (no_atual == null) {
+            throw new NullPointerException("Árvore Vázia");
+        } else {
+            explorados.add(no_atual);
+            visitados.push(no_atual);
+            while (explorados.size() != this.tamanho) {
+                while (no_atual.getFilhoEsquerdo() != null && no_atual.getFilhoEsquerdo() != aux && no_atual.getFilhoEsquerdo() != aux2) {
+                    no_atual = no_atual.getFilhoEsquerdo();
+                    explorados.add(no_atual);
+                    visitados.push(no_atual);
+                }
+                if (no_atual.getFilhoDireito() != null && no_atual.getFilhoDireito() != aux) {
+                    no_atual = no_atual.getFilhoDireito();
+                    explorados.add(no_atual);
+                    visitados.push(no_atual);
+                } else {
+                    aux = visitados.pop();
+                    no_atual = visitados.peek();
+                    aux2 = no_atual.getFilhoEsquerdo();
+                }
+            }
+        }
+
+        return explorados;
+    }
+    
+    
+    public Collection<No<K, V>> getPosOrdenado(){
+        System.out.println("Pós Ordenado.");
+        LinkedList<No<K,V>> explorados = new LinkedList<>();
+        Stack<No<K,V>> visitados = new Stack<>();
+        No<K,V> aux1 = null, aux2 = null, no_atual = this.raiz;
+        
+        if(this.raiz == null){
+            throw new NullPointerException("Arvore Vazia");
+        }else{
+            visitados.push(no_atual);
+            while(!visitados.isEmpty()){
+                if(no_atual.getFilhoEsquerdo() != null){
+                    no_atual = no_atual.getFilhoEsquerdo();
+                    visitados.push(no_atual);
+                    continue;
+                }else{
+                    if(no_atual.getFilhoDireito() != null){
+                        no_atual = no_atual.getFilhoDireito();
+                        visitados.push(no_atual);
+                        aux1 = no_atual;
+                    }else{//caso nó folha
+                        explorados.add(no_atual);
+                        visitados.pop();
+                        if(visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() != aux1){
+                            no_atual = visitados.peek().getFilhoDireito();
+                            aux1 = no_atual;
+                            visitados.push(no_atual);//preciso de um Else if para caso seja nulo
+                        }else if(visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() == aux1){
+                                while(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == aux1){
+                                no_atual = visitados.peek();
+                                aux1 = no_atual;
+                                explorados.add(no_atual);
+                                visitados.pop();
+                                }
+                                
+                                if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
+                                    //System.out.println(visitados.peek().getChave());
+                                    no_atual = visitados.peek().getFilhoDireito();
+                                    visitados.push(no_atual);
+                                    aux1 = no_atual;
+                                }
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return explorados;
+    }
+    
+    
 }
