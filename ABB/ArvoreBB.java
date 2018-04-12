@@ -304,59 +304,60 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
 
         return explorados;
     }
-    
-    
-    public Collection<No<K, V>> getPosOrdenado(){
+
+    public Collection<No<K, V>> getPosOrdenado() {
         System.out.println("Pós Ordenado.");
-        LinkedList<No<K,V>> explorados = new LinkedList<>();
-        Stack<No<K,V>> visitados = new Stack<>();
-        No<K,V> aux1 = null, aux2 = null, no_atual = this.raiz;
-        
-        if(this.raiz == null){
+        LinkedList<No<K, V>> explorados = new LinkedList<>();
+        Stack<No<K, V>> visitados = new Stack<>();
+        No<K, V> aux1 = null, aux2 = null, no_atual = this.raiz;
+
+        if (this.raiz == null) {
             throw new NullPointerException("Arvore Vazia");
-        }else{
+        } else {
             visitados.push(no_atual);
-            while(!visitados.isEmpty()){
-                if(no_atual.getFilhoEsquerdo() != null){
+            while (!visitados.isEmpty()) {
+                if (no_atual.getFilhoEsquerdo() != null) {
                     no_atual = no_atual.getFilhoEsquerdo();
                     visitados.push(no_atual);
                     continue;
-                }else{
-                    if(no_atual.getFilhoDireito() != null){
+                } else {
+                    if (no_atual.getFilhoDireito() != null) {
                         no_atual = no_atual.getFilhoDireito();
                         visitados.push(no_atual);
                         aux1 = no_atual;
-                    }else{//caso nó folha
+                    } else {//caso nó folha
                         explorados.add(no_atual);
                         visitados.pop();
-                        if(visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() != aux1){
+                        if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() != aux1) {
                             no_atual = visitados.peek().getFilhoDireito();
                             aux1 = no_atual;
                             visitados.push(no_atual);//preciso de um Else if para caso seja nulo
-                        }else if(visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() == aux1){
-                                while(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == aux1){
+                        } else if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() == aux1) {
+                            while (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == aux1) {
                                 no_atual = visitados.peek();
                                 aux1 = no_atual;
                                 explorados.add(no_atual);
                                 visitados.pop();
-                                }
-                                
-                                if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null){
-                                    //System.out.println(visitados.peek().getChave());
-                                    no_atual = visitados.peek().getFilhoDireito();
-                                    visitados.push(no_atual);
-                                    aux1 = no_atual;
-                                }
-                            
+                            }
+
+                            if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null) {
+                                //System.out.println(visitados.peek().getChave());
+                                no_atual = visitados.peek().getFilhoDireito();
+                                visitados.push(no_atual);
+                                aux1 = no_atual;
+                            } else if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null) {
+                                explorados.add(visitados.peek());
+                                visitados.pop();
+                            }
+
                         }
                     }
                 }
             }
-            
+
         }
-        
+
         return explorados;
     }
-    
-    
+
 }
