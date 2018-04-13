@@ -316,31 +316,41 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
         } else {
             visitados.push(no_atual);
             while (!visitados.isEmpty()) {
+                
                 if (no_atual.getFilhoEsquerdo() != null && no_atual.getFilhoEsquerdo() != aux2) {
                     no_atual = no_atual.getFilhoEsquerdo();
                     visitados.push(no_atual);
                 } else {
+                    
                     if (no_atual.getFilhoDireito() != null && no_atual.getFilhoDireito() != aux1) {
                         no_atual = no_atual.getFilhoDireito();
                         visitados.push(no_atual);
                         aux1 = no_atual;
                     } else {//caso nó folha ou aux1 == filhoDireito e aux2 == filhoDireito
+                        if((no_atual.getFilhoEsquerdo() != null && no_atual.getFilhoEsquerdo() == aux2 ) && (no_atual.getFilhoDireito() == aux1 || no_atual.getFilhoDireito() == null) ){
+                           aux2 = no_atual; 
+                        }
                         explorados.add(no_atual);
+                        //System.out.println(explorados.getLast().getChave());
                         visitados.pop();
+                        
                         if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() != aux1) {
                             aux2 = visitados.peek().getFilhoEsquerdo();
+                            //System.out.println("Auxiliar:"+aux2.getChave());
                             no_atual = visitados.peek().getFilhoDireito();
                             aux1 = no_atual;
                             visitados.push(no_atual);//preciso de um Else if para caso seja nulo
                         } else if(!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null){
                             aux1 = visitados.peek();
                             explorados.add(visitados.pop());
+                            //System.out.println(explorados.getLast().getChave());
                             no_atual = visitados.peek();
                         } else if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() == aux1) {
                             while (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == aux1) {
                                 no_atual = visitados.peek();
                                 aux1 = no_atual;
                                 explorados.add(no_atual);
+                               // System.out.println(explorados.getLast().getChave());
                                 visitados.pop();
                             }
 
@@ -351,6 +361,7 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                                 aux1 = no_atual;
                             } else if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() == null) {
                                 explorados.add(visitados.peek());
+                                //System.out.println(explorados.getLast().getChave());
                                 visitados.pop();
                             }
 
