@@ -319,16 +319,16 @@ public class ArvoreBB<K extends Comparable<K>, V> implements IArvoreBB<K, V> {
                 if (no_atual.getFilhoEsquerdo() != null && no_atual.getFilhoEsquerdo() != aux2) {
                     no_atual = no_atual.getFilhoEsquerdo();
                     visitados.push(no_atual);
-                    continue;
                 } else {
                     if (no_atual.getFilhoDireito() != null && no_atual.getFilhoDireito() != aux1) {
                         no_atual = no_atual.getFilhoDireito();
                         visitados.push(no_atual);
                         aux1 = no_atual;
-                    } else {//caso nó folha
+                    } else {//caso nó folha ou aux1 == filhoDireito e aux2 == filhoDireito
                         explorados.add(no_atual);
                         visitados.pop();
                         if (!visitados.isEmpty() && visitados.peek().getFilhoDireito() != null && visitados.peek().getFilhoDireito() != aux1) {
+                            aux2 = visitados.peek().getFilhoEsquerdo();
                             no_atual = visitados.peek().getFilhoDireito();
                             aux1 = no_atual;
                             visitados.push(no_atual);//preciso de um Else if para caso seja nulo
