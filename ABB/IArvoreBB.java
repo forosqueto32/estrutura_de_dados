@@ -5,6 +5,8 @@
  */
 package arvore_binaria_busca;
 
+import java.util.Collection;
+
 /**
  *
  * @author harri
@@ -22,4 +24,17 @@ public interface IArvoreBB<K, V> {
     public boolean vazia();
 
     public void limpar();
+
+    public No<?, ?> menorNo();
+
+    public No<?, ?> maiorNo();
+
+    /*public Collection<No> getOrdenado();
+     
+    public Collection<No<?, ?>> getPreOrdenado();
+    
+    public Collection<No<?, ?>> getPosOrdenado();
+    
+    public Collection<No<?, ?>> emLargura();
+     */
 }
